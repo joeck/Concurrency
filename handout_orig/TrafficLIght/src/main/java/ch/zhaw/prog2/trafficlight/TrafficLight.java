@@ -1,7 +1,5 @@
 package ch.zhaw.prog2.trafficlight;
 
-import static java.lang.Thread.sleep;
-
 class TrafficLight {
     private boolean red;
 
@@ -11,23 +9,14 @@ class TrafficLight {
 
     public synchronized void passby() {
         // ToDo: wait as long the light is red
-        while (red){
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                //dummy
-            }
-        }
     }
 
     public synchronized void switchToRed() {
-        red = true;
+        // ToDo: set light to red
     }
 
     public synchronized void switchToGreen() {
-        red = false;
-        notifyAll();
-        //notifyAll because otherwise only one car can pass per light
+        // Todo: set light to green
         // waiting cars can now pass by
     }
 }

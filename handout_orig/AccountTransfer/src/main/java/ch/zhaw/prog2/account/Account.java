@@ -17,7 +17,7 @@ public class Account {
         return saldo;
     }
 
-    public synchronized void changeSaldo(int delta) {
+    public void changeSaldo(int delta) {
         this.saldo += delta;
     }
 }

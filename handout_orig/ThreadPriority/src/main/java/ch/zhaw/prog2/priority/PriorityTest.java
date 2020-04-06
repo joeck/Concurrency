@@ -2,11 +2,10 @@ package ch.zhaw.prog2.priority;
 
 
 public class PriorityTest {
-    volatile boolean keepRunning = true;
     public static void main(String[] args) throws InterruptedException {
-        int numthreads = 100;
+        int numthreads = 30;
         SimpleThread[] threads = new SimpleThread[numthreads];
-        int[] priorities = new int[] { 1, 1, 1 }; // { 1, 5, 10 };
+        int[] priorities = new int[] { 1, 1, 1 }; // { 1, 5, 10 }
         // start threads
         for (int i = 0; i < numthreads; i++) {
             threads[i] = new SimpleThread(""+i);
@@ -14,10 +13,11 @@ public class PriorityTest {
             threads[i].start();
         }
         // wait for some time
-        //Thread.sleep(2000);
+        Thread.sleep(2000);
         // terminate all threads
         for (SimpleThread thread : threads) {
-            thread.stopThread();
+            // ToDo: Replace the deprecated stop-Method with a proper way to stop the thread.
+            thread.stop();
         }
         // print results
         for (SimpleThread thread : threads) {
@@ -30,21 +30,16 @@ public class PriorityTest {
 
     private static class SimpleThread extends Thread {
         long count = 0;
-        boolean keepRunning = true;
 
         public SimpleThread(String str) { super(str); }
 
-        public void stopThread(){
-            keepRunning = false;
-            this.interrupt();
-        }
-
         @Override
         public void run() {
-            while (keepRunning) {
+            while (true) {
                 count++;
                 Thread.yield();
             }
         }
     }
+
 }

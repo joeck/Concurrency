@@ -17,23 +17,11 @@ class Car extends Thread {
 
     private void gotoNextLight() {
         // ToDo: Helper method to move car to next light
-        if (pos == trafficLights.length - 1){
-            pos = 0;
-        } else {
-            ++pos;
-        }
     }
     @Override
     public void run() {
         while (true) {
             // ToDo: drive endlessly through all lights
-            trafficLights[pos].passby();
-            try {
-                sleep((int)(Math.random() * 500));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            gotoNextLight();
         }
     }
 }

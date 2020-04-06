@@ -5,7 +5,7 @@ class AccountTransferThread extends Thread {
     private Account fromAccount;
     private Account toAccount;
     private int amount;
-    private int maxIter = 1000;
+    private int maxIter = 10000;
 
     public AccountTransferThread(String name, Account fromAccount, Account toAccount, int amount) {
         super(name);

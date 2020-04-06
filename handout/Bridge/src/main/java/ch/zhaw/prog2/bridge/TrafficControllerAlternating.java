@@ -7,9 +7,9 @@ import java.util.concurrent.locks.ReentrantLock;
 /*
  * Controls the traffic passing the bridge
  */
-public class TrafficController {
+public class TrafficControllerAlternating {
 
-    private ReentrantLock mutex = new ReentrantLock();
+    private Lock mutex = new ReentrantLock();
     private Condition l2r = mutex.newCondition();
     private Condition r2l = mutex.newCondition();
     private boolean bridgeOccupied = false;
@@ -49,11 +49,7 @@ public class TrafficController {
         mutex.lock();
         try {
             bridgeOccupied = false;
-            if (mutex.hasWaiters(r2l)){
-                r2l.signal();
-            } else {
-                l2r.signal();
-            }
+            l2r.signal();
         } finally {
             mutex.unlock();
         }
@@ -64,11 +60,7 @@ public class TrafficController {
         mutex.lock();
         try {
             bridgeOccupied = false;
-            if (mutex.hasWaiters(l2r)){
-                l2r.signal();
-            } else {
-                r2l.signal();
-            }
+            r2l.signal();
         } finally {
             mutex.unlock();
         }

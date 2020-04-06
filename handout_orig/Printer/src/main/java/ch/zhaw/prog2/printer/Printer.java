@@ -24,18 +24,16 @@ public class Printer {
 
         @Override
         public void run() {
-            if (Thread.currentThread() == this) {
-                System.out.println(getName() + " run started...");
-                for (int i = 1; i < 100; i++) {
-                    System.out.print(symbol);
-                    try {
-                        Thread.sleep(sleepTime);
-                    } catch (InterruptedException e) {
-                        System.out.println(e.getMessage());
-                    }
+            System.out.println(getName() + " run started...");
+            for (int i = 1; i < 100; i++) {
+                System.out.print(symbol);
+                try {
+                    Thread.sleep(sleepTime);
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
                 }
-                System.out.println('\n' + getName() + " run ended.");
             }
+            System.out.println('\n' + getName() + " run ended.");
         }
     }
 }
