@@ -1,0 +1,4 @@
+= Textantworten für Concurrency 2 Übung
+Joël Plambeck
+
+= 3.2.c The dining philosophers

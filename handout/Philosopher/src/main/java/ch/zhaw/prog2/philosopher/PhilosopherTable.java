@@ -84,24 +84,29 @@ class ForkManager {
             forks[i] = new Fork(mutex);
     }
 
-    public void acquireFork(int i) {
+    public void acquireForks(int leftFork, int rightFork){
         try {
             mutex.lock();
-            while (forks[i].forkState == ForkState.OCCUPIED)
-                forks[i].cond.await();
-            forks[i].forkState = ForkState.OCCUPIED;
+            while (forks[leftFork].forkState == ForkState.OCCUPIED
+                    || forks[rightFork].forkState == ForkState.OCCUPIED) {
+                forks[leftFork].cond.await();
+            }
+            forks[leftFork].forkState = ForkState.OCCUPIED;
+            forks[rightFork].forkState = ForkState.OCCUPIED;
         } catch (InterruptedException e) {
-            System.err.println("Interrupted: " + e.getMessage());
+            e.printStackTrace();
         } finally {
             mutex.unlock();
         }
     }
 
-    public void releaseFork(int i) {
+    public void releaseForks(int leftFork, int rightFork){
         try {
             mutex.lock();
-            forks[i].forkState = ForkState.FREE;
-            forks[i].cond.signal();
+            forks[leftFork].forkState = ForkState.FREE;
+            forks[rightFork].forkState = ForkState.FREE;
+            forks[rightFork].cond.signal();
+            forks[leftFork].cond.signal();
         } finally {
             mutex.unlock();
         }
@@ -113,7 +118,6 @@ class ForkManager {
     public int right(int i) {
         return (i + 1) % nrForks;
     }
-
 }
 
 
@@ -176,20 +180,17 @@ class Philosopher extends Thread {
         table.notifyStateChange(this);
 
         ForkManager mgr = table.getForkManager();
-        mgr.acquireFork(id);
+        mgr.acquireForks(id, mgr.right(id));
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             System.err.println("Interrupted: " + e.getMessage());
         }
-        mgr.acquireFork(mgr.right(id));
     }
 
     private void putForks() {
         ForkManager mgr = table.getForkManager();
-        mgr.releaseFork(id);
-        mgr.releaseFork(mgr.right(id));
-
+        mgr.releaseForks(id, mgr.right(id));
     }
 
     @Override
