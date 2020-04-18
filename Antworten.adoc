@@ -1,4 +1,24 @@
 = Textantworten für Concurrency 2 Übung
 Joël Plambeck
 
-= 3.2.c The dining philosophers
+:toc:
+
+= 3.2 The dining philosophers
+
+== a)
+Wenn man die Zeit (= timeout) zwischen dem Greifen der ersten Gabel und dem greifen der zweiten Gabel nimmt.
+
+== c)
+Man könnte ein Philosopher 'trainieren', dass er zuerst die rechte anstatt die linke greift.
+Somit könnte die Kette unterbrochen werden.
+
+= 4.2 Mandelbrot
+
+=== a)
+Mit 16 Threads geht es am schnellsten (MBP Quad-Core)
+
+=== b)
+Da mein Computer ein Quad-core prozessor hat, sind die versionen mit `Anzahl Threads % 4 = 0` schneller als ein Thread mehr.
+
+== 4.2.1
+

@@ -122,8 +122,8 @@ class ForkManager {
 
 
 class Philosopher extends Thread {
-    private final static int THINK_TIME_FACTOR = 1;
-    private final static int EAT_TIME_FACTOR = 1;
+    private final static int THINK_TIME_FACTOR = 3;
+    private final static int EAT_TIME_FACTOR = 3;
     private final int id;
     private final PhilosopherTable table;
     private PhiloState philoState = PhiloState.THINKING;
@@ -181,11 +181,15 @@ class Philosopher extends Thread {
 
         ForkManager mgr = table.getForkManager();
         mgr.acquireForks(id, mgr.right(id));
+
+        // Obsolete since both forks are taken in one action (= atomic)
+        /*
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             System.err.println("Interrupted: " + e.getMessage());
         }
+        */
     }
 
     private void putForks() {
