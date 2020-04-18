@@ -3,22 +3,38 @@ Joël Plambeck
 
 :toc:
 
-= 3.2 The dining philosophers
+== 3.2 The dining philosophers
 
-== a)
+=== a)
 Wenn man die Zeit (= timeout) zwischen dem Greifen der ersten Gabel und dem greifen der zweiten Gabel nimmt.
 
-== c)
+=== c)
 Man könnte ein Philosopher 'trainieren', dass er zuerst die rechte anstatt die linke greift.
 Somit könnte die Kette unterbrochen werden.
 
-= 4.2 Mandelbrot
+== 4.2 Mandelbrot
 
-=== a)
+==== a)
 Mit 16 Threads geht es am schnellsten (MBP Quad-Core)
 
-=== b)
+==== b)
 Da mein Computer ein Quad-core prozessor hat, sind die versionen mit `Anzahl Threads % 4 = 0` schneller als ein Thread mehr.
 
-== 4.2.1
+=== 4.2.1
+SingleThreadPool:: Macht keint Sinn, da mehrere Threads verwendet werden sollen.
+FixedThreadPool::
+Wäre möglich, die Höhe könnte als maximale Anzahl Threads verwendet werden.
+CachedThreadPool:: Wäre möglich, sehr unwahrscheinlich, dass die Berechnung länger als 60s braucht.
+WorkStealingPool:: Wäre möglich, könnte auf verschiedenen Geräten performant laufen, da es die Anzahl Kerne in Betracht zieht.
+
+.Messungen:
+|===
+| | FixedThreadPool | CachedThreadPool | WorkStealingPool
+| 3 Threads | 2517ms | 4541ms | 2594ms
+| 10 Threads | 1113ms | 1099ms | 1115ms
+| 16 Threads | 1108ms | 1123ms | 1108ms
+|===
+
+Wie in den Messungen ersichtlich, ist die FixedThreadPool methode am schnellsten.
+Dies stellt zugleich sicher, dass nicht mehr Threads als die Höhe des Bildes erstellt werden.
 

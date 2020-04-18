@@ -173,7 +173,7 @@ public class MandelbrotExecutor {
          */
         private void startTasks(int threadCount) {
             System.out.println("Starting calculation using " + threadCount + " threads.");
-            executorService = Executors.newWorkStealingPool(threadCount);
+            executorService = Executors.newFixedThreadPool(threadCount);
             workers = new Thread[height];
             running = true;  // Set the signal before starting the threads!
             tasksRemaining = height;
