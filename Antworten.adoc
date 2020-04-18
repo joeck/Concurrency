@@ -3,13 +3,19 @@ Joël Plambeck
 
 :toc:
 
+== 2.3 Thread-Safe Circular Buffer
+NotifyAll() wird verwendet, da es unter Umständen sein kann, dass getAuftraege und putAuftraege im
+Warteraum sind. Wenn dann ein notify() kommt, kann es sein, dass ein Auftrag geweckt wird der noch nicht
+weitermachen darf, da die Bedingung immernoch so ist, dass er warten muss.
+Dies ist bei kleinem Buffer mit grosser Anzahl Producer & Consumer gut möglich.
+
 == 3.2 The dining philosophers
 
 === a)
 Wenn man die Zeit (= timeout) zwischen dem Greifen der ersten Gabel und dem greifen der zweiten Gabel nimmt.
 
 === c)
-Man könnte ein Philosopher 'trainieren', dass er zuerst die rechte anstatt die linke greift.
+Man könnte einen Philosopher 'trainieren', dass er zuerst die rechte anstatt die linke greift.
 Somit könnte die Kette unterbrochen werden.
 
 == 4.2 Mandelbrot
