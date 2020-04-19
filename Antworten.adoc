@@ -1,7 +1,6 @@
 = Textantworten für Concurrency 2 Übung
-Joël Plambeck
-
-:toc:
+Joël Plambeck <plambjoe@students.zhaw.ch>
+:icons: font
 
 == 2.3 Thread-Safe Circular Buffer
 NotifyAll() wird verwendet, da es unter Umständen sein kann, dass getAuftraege und putAuftraege im
@@ -21,7 +20,7 @@ Somit könnte die Kette unterbrochen werden.
 == 4.2 Mandelbrot
 
 ==== a)
-Mit 16 Threads geht es am schnellsten (MBP Quad-Core)
+Mit 16 Threads geht es am schnellsten (icon:apple[] MBP Quad-Core)
 
 ==== b)
 Da mein Computer ein Quad-core prozessor hat, sind die versionen mit `Anzahl Threads % 4 = 0` schneller als ein Thread mehr.
